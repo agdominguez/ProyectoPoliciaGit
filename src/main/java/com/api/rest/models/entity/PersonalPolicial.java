@@ -9,9 +9,12 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -29,6 +32,8 @@ public class PersonalPolicial implements Serializable {
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "CODIGO", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GSQ_PERSONAL_POLICIAL")
+	@SequenceGenerator(name = "GSQ_PERSONAL_POLICIAL", allocationSize = 1, sequenceName = "SEQ_PERSONAL_POLICIAL")
 	private Long codigo;
 	@Size(max = 13)
 	@Column(name = "IDENTIFICACION", length = 13)
@@ -39,12 +44,14 @@ public class PersonalPolicial implements Serializable {
 	@Column(name = "FECHA_NACIMIENTO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaNacimiento;
-	@Size(max = 5)
-	@Column(name = "TIPO_SANGRE", length = 5)
-	private String tipoSangre;
-	@Size(max = 25)
-	@Column(name = "CIUDAD_NACIMIENTO", length = 25)
-	private String ciudadNacimiento;
+	@JoinColumn(name = "CODIGO_TIPO_SANGRE", referencedColumnName = "CODIGO")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private TipoSangre tipoSangre;
+	@JoinColumn(name = "CODIGO_CIUDAD_NACIMIENTO", referencedColumnName = "CODIGO")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private Dependencia ciudadNacimiento;
 	@Size(max = 10)
 	@Column(name = "TELEFONO_CELULAR", length = 10)
 	private String telefonoCelular;

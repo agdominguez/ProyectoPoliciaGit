@@ -11,7 +11,7 @@ import com.bst.app.commons.dao.ICommonDao;
 
 public interface IFlotaVehicularDao extends ICommonDao<FlotaVehicular, Object> {
 	
-	@Query("SELECT fv FROM FlotaVehicular fv WHERE CONCAT(fv.placa, fv.chasis, fv.marca) LIKE %?1% AND fv.eliminado = 'N'")
+	@Query("SELECT fv FROM FlotaVehicular fv WHERE CONCAT(fv.tipoVehiculo.tipo, fv.placa, fv.chasis, fv.marca, fv.modelo, fv.motor, fv.kilometraje) LIKE %?1% AND fv.eliminado = 'N'")
 	Page<FlotaVehicular> searchList(String search, Pageable pageable);
 
 	@Query("SELECT fv FROM FlotaVehicular fv WHERE fv.eliminado = 'N'")

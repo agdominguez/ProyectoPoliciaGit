@@ -12,8 +12,11 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -37,6 +40,8 @@ public class FlotaVehicular implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "CODIGO", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GSQ_FLOTA_VEHICULAR")
+	@SequenceGenerator(name = "GSQ_FLOTA_VEHICULAR", allocationSize = 1, sequenceName = "SEQ_FLOTA_VEHICULAR")
     private Long codigo;
     @Size(max = 10)
     @Column(name = "PLACA", length = 10)

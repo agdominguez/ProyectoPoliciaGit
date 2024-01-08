@@ -11,7 +11,7 @@ import com.bst.app.commons.dao.ICommonDao;
 
 public interface IDependenciaDao extends ICommonDao<Dependencia, Object> {
 
-	@Query("SELECT d FROM Dependencia d WHERE CONCAT(d.nombre, d.siglas) LIKE %?1% AND d.eliminado = 'N'")
+	@Query("SELECT d FROM Dependencia d WHERE CONCAT(d.nombre, d.siglas, d.jerarquia.nombre, d.dependenciaPadre.nombre, d.codigoCircuitoSubcircuito) LIKE %?1% AND d.eliminado = 'N'")
 	Page<Dependencia> searchList(String search, Pageable pageable);
 
 	@Query("SELECT d FROM Dependencia d WHERE d.eliminado = 'N'")
