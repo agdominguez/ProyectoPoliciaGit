@@ -7,8 +7,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -76,4 +78,17 @@ public class DependenciaRestController extends CommonRestController<Dependencia,
 		response.put("elemento", dependenciaEliminado);
 		return ResponseEntity.ok(response);
 	}
+	
+	@GetMapping("/listado")
+	@PreAuthorize("admin")
+	public ResponseEntity<List<Dependencia>> indexNotDeleted() {
+		List<Dependencia> entities = service.findAllNotDeleted();
+
+		if (entities.isEmpty()) {
+			return ResponseEntity.noContent().build();
+		} else {
+			return ResponseEntity.ok(entities);
+		}
+	}
+
 }

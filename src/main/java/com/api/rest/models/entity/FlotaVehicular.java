@@ -20,6 +20,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -29,7 +30,9 @@ import lombok.Data;
 * @author Alex
 */
 @Entity
-@Table(name = "FLOTA_VEHICULAR", catalog = "", schema = "PLA_FLOTA_VEHICULAR")
+@Table(name = "FLOTA_VEHICULAR", catalog = "", schema = "PLA_FLOTA_VEHICULAR", 
+uniqueConstraints = { @UniqueConstraint(columnNames = { "PLACA" })}
+)
 @Data
 
 public class FlotaVehicular implements Serializable {

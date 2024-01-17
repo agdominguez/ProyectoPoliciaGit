@@ -23,6 +23,8 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'com.bst:bst-business-common-microservices-global:0.0.1-SNAPSHOT'
 	implementation 'com.bst:bst-business-common-microservices:0.0.1-SNAPSHOT'
 	implementation 'jakarta.validation:jakarta.validation-api:3.0.0'

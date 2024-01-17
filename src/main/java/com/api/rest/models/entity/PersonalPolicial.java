@@ -18,12 +18,14 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
-@Table(name = "PERSONAL_POLICIAL", catalog = "", schema = "PLA_PERSONAS")
+@Table(name = "PERSONAL_POLICIAL", catalog = "", schema = "PLA_PERSONAS", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "IDENTIFICACION" }) })
 @Data
 public class PersonalPolicial implements Serializable {
 

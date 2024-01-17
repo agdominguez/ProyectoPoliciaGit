@@ -11,7 +11,7 @@ import com.bst.app.commons.dao.ICommonDao;
 
 public interface IPersonalPolicialDao extends ICommonDao<PersonalPolicial, Object> {
 
-	@Query("SELECT pp FROM PersonalPolicial pp WHERE CONCAT(pp.identificacion, pp.nombreCompleto, pp.tipoSangre.nombre, pp.ciudadNacimiento.nombre, pp.telefonoCelular, pp.rango.nombre) LIKE %?1% AND pp.eliminado = 'N'")
+	@Query("SELECT pp FROM PersonalPolicial pp WHERE CONCAT(pp.identificacion, pp.nombreCompleto, pp.tipoSangre.nombre, pp.ciudadNacimiento.nombre, pp.telefonoCelular, pp.rango.nombreRango) LIKE %?1% AND pp.eliminado = 'N'")
 	Page<PersonalPolicial> searchList(String search, Pageable pageable);
 
 	@Query("SELECT pp FROM PersonalPolicial pp WHERE pp.eliminado = 'N'")
