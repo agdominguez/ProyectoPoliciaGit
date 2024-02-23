@@ -7,9 +7,12 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -24,11 +27,13 @@ public class MantenimientoTipo implements Serializable {
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "CODIGO", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GSQ_MANTENIMIENTO_TIPO")
+	@SequenceGenerator(name = "GSQ_MANTENIMIENTO_TIPO", allocationSize = 1, sequenceName = "SEQ_MANTENIMIENTO_TIPO")
 	private Long codigo;
 	@JoinColumn(name = "CODIGO_MANTENIMIENTO", referencedColumnName = "CODIGO", nullable = false)
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private Mantenimiento Mantenimiento;
+	private Mantenimiento mantenimiento;
 	@JoinColumn(name = "CODIGO_TIPO_MANTENIMIENTO", referencedColumnName = "CODIGO", nullable = false)
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })

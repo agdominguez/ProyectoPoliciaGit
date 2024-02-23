@@ -14,7 +14,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedStoredProcedureQueries;
+import jakarta.persistence.NamedStoredProcedureQuery;
+import jakarta.persistence.ParameterMode;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.StoredProcedureParameter;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -25,6 +29,19 @@ import lombok.Data;
 @Entity
 @Table(name = "SOLICITUD", catalog = "", schema = "PLA_MANTENIMIENTOS")
 @Data
+
+@NamedStoredProcedureQueries({
+	@NamedStoredProcedureQuery(
+			name = "p_actualiza_estado", 
+			procedureName = "pla_mantenimientos.pkg_solicitud.p_actualiza_estado", 
+			resultClasses = { Solicitud.class }, parameters = {
+					@StoredProcedureParameter(name = "p_codigo_solicitud", mode = ParameterMode.IN, type = Long.class),
+					@StoredProcedureParameter(name = "p_estado", mode = ParameterMode.IN, type = Character.class),
+					@StoredProcedureParameter(name = "pv_error_sql", mode = ParameterMode.OUT, type = String.class),
+					@StoredProcedureParameter(name = "pv_error_code", mode = ParameterMode.OUT, type = Long.class),
+					@StoredProcedureParameter(name = "pv_error", mode = ParameterMode.OUT, type = String.class) })
+
+})
 public class Solicitud implements Serializable {
 
 	private static final long serialVersionUID = 1L;
